@@ -3,7 +3,7 @@ from . import models
 # Create your views here.
 def car_order(request,id):
   car=models.Car.objects.get(pk=id)
-  
+
   if car.quantity>0:
     order=models.Order()
     order.user=request.user
