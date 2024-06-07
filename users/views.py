@@ -56,3 +56,18 @@ def edit_profile(request):
   else:
     profile_form=forms.ChnageUserForm(instance=request.user)
   return render(request,'edit_profile.html',{'form':profile_form})
+
+
+
+def pass_chnage(request):
+  if request.method=='POST':
+    form=PasswordChangeForm(request.user,data=request.POST)
+    if form.is_valid():
+      form.save()
+      messages.success(request, 'pass change  Successfully')
+      update_session_auth_hash(request,form.user)
+      return redirect("profile")
+  else:
+    form=PasswordChangeForm(user=request.user)
+  return render(request,'pass_change.html',{'form':form})
+
