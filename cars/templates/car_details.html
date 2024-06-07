@@ -27,7 +27,7 @@
           <span>Total  Quntity:</span> <span >{{car.quantity}}</span>
          </p>
          {% if request.user.is_authenticated %}
-         <a href="" class="text-decoration-none btn btn-info">Buy now</a>
+         <a href="{% url 'car_order' car.id %}" class="text-decoration-none btn btn-info">Buy now</a>
          {%endif%}
       </div>
     </div>
@@ -37,8 +37,10 @@
 {% comment %} commenet section {% endcomment %}
 <section class='py-5'>
 <div class="container">
+  
+  {% if comments|length  %}
   <div class="card p-2">
-    <h5>Totoal Comments :{{comments | length}} </h5>
+    <h5>Total Comments :{{comments | length}} </h5>
     <div class="card-body">
       {% for comment in comments%}  
       <h6>{{comment.name}} (<span class='text-info'>{{comment.created_on  }}</span>) </h6>
@@ -48,7 +50,11 @@
       {%endfor%}
     </div>
   </div>
-  
+  {%else%}
+  <p> No Comment Found</p>
+
+  {%endif%}
+
   
   <div class="mt-5">
     <h2 class='text-center'>Comment Form</h2>

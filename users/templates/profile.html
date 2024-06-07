@@ -5,6 +5,7 @@
 {% load crispy_forms_tags %}
 <div class="container mt-5">
   <h5 class="text-center">Profile page</h5>
+  {{orders}}
   {% comment %} <a href="{% url 'edit_profile' %}" class="btn btn-danger ">Edit Your Profile</a> {% endcomment %}
   {% comment %} <div class="d-flex flex-wrap gap-5 justify-content-center mt-2">
     {%for post in data%}

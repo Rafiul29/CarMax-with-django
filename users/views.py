@@ -3,7 +3,7 @@ from . import forms
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
-
+from orders.models import Order
 # Create your views here.
 def register(request):
   if request.method=='POST':
@@ -36,7 +36,8 @@ def user_login(request):
   return render(request,'forms.html',{'form':login_form,'type':"Login"})
 
 def profile(request):
-  return render(request,'profile.html')
+  orders=Order.objects.filter(user=request.user)
+  return render(request,'profile.html',{'orders':orders})
 
 def user_logout(request):
   logout(request)

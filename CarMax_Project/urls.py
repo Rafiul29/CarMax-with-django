@@ -29,7 +29,7 @@ urlpatterns = [
     path('user/',include('users.urls')),
     path('car/',include('cars.urls')),
     # path('brand/',include('brands.urls')),
-    # path('order/',include('orders.urls')),
+    path('order/',include('orders.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
