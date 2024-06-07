@@ -12,12 +12,12 @@
      
       <div class="col-4" >
         <h3 class="text-center mb-5">My Profile</h3>      
-        <div class='shadow p-3' style='height:40vh'>
+        <div class='shadow py-4 px-2' style='height:40vh'>
          <div class='d-flex flex-column gap-3'>
-          <a  href="{% url 'profile' %}" class="text-decoration-none p-2 text-primary rounded" style='background-color:#C1C2C3'>Personal Information</a>
-          <a href="{% url 'edit_profile' %}"class="text-decoration-none p-2 text-primary rounded" style='background-color:#C1C2C3'>Edit profile</a>
-          <a href="{% url 'pass_chnage' %}" class="text-decoration-none p-2 text-primary rounded" style='background-color:#C1C2C3'>Chnage Password</a>
-          <a href="{% url 'pass_chnage' %}" class="text-decoration-none p-2 text-primary rounded" style='background-color:#C1C2C3'>Order History</a>
+          <a  href="{% url 'profile' %}" class='bg-info p-2 rounded text-decoration-none text-dark'>Personal Information</a>
+          <a href="{% url 'edit_profile' %}" class='bg-info p-2 rounded text-decoration-none text-dark'>Edit Profile</a>
+          <a href="{% url 'pass_chnage' %}" class='bg-info p-2 rounded text-decoration-none text-dark'>Chnage Password</a>
+          <a href="{% url 'show_orders' %}" class='bg-info p-2 rounded text-decoration-none text-dark'>Order History</a>
          </div>
         </div>
       </div>

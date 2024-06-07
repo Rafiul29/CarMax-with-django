@@ -13,3 +13,7 @@ def car_order(request,id):
     car.save()
     return redirect('profile')
 
+
+def show_orders(request):
+  orders=models.Order.objects.filter(user=request.user)
+  return render(request,'order_history.html',{'orders':orders})
