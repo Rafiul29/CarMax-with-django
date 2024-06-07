@@ -26,7 +26,7 @@
          <p>
           <span>Total  Quntity:</span> <span >{{car.quantity}}</span>
          </p>
-         {% if request.user.is_authenticated %}
+         {%  if request.user.is_authenticated and car.quantity > 0 %}
          <a href="{% url 'car_order' car.id %}" class="text-decoration-none btn btn-info">Buy now</a>
          {%endif%}
       </div>
@@ -46,7 +46,7 @@
       <h6>{{comment.name}} (<span class='text-info'>{{comment.created_on  }}</span>) </h6>
       <p>{{comment.email}} </p>
       <p>{{comment.body}} </p>
-      <a href="{%url 'deletecomment' comment.id %}" class="href">del</a>
+      {% comment %} <a href="{%url 'deletecomment' comment.id %}" class="href">del</a> {% endcomment %}
       {%endfor%}
     </div>
   </div>

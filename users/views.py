@@ -4,6 +4,8 @@ from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 from orders.models import Order
+
+
 # Create your views here.
 def register(request):
   if request.method=='POST':
@@ -42,3 +44,15 @@ def profile(request):
 def user_logout(request):
   logout(request)
   return redirect('login')
+
+
+def edit_profile(request):
+  if request.method=='POST':
+    profile_form=forms.ChnageUserForm(request.POST,instance=request.user)
+    if profile_form.is_valid():
+      print(profile_form.cleaned_data)
+      profile_form.save()
+      return redirect("profile")
+  else:
+    profile_form=forms.ChnageUserForm(instance=request.user)
+  return render(request,'edit_profile.html',{'form':profile_form})
