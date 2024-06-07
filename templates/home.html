@@ -3,28 +3,56 @@
 
 {% block content%}
   
-<div class="container py-5">
-  <div class="d-flex flex-wrap gap-5 justify-content-center">
-    {%for car in cars%}
-      <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="{{car.image.url}}" alt="Card image cap">
-          <div class="card-body " >
-            <h5 class="card-title">
-              <a href="" class="text-decoration-none">{{car.title}}</a>
-            </h5>
-            <p class="card-text">{{car.content | truncatechars:150}}</p>
-            <p>
-              Author : {{car.author}}
-            </p>
-            <p> Category: 
-              {% for cat in car.category.all %}
-            <button class='btn btn-secondary m-1'> {{cat.name}}</button>
-            {% endfor %}
+
+
+{% comment %} brand section {% endcomment %}
+<section class='pt-5'>
+  <div class="container">
+    <h2 class="text-left pb-2">All Brands</h2>
+    <div class="d-flex flex-warp gap-2">
+      {%for brand in brands%}
+      <div class="form-check bg-info rounded p-1 ">
+        <input class="form-check-input d-none " type="radio" name="flexRadioDefault" id={{brand.id}}>
+        <label class="form-check-label" for={{brand.id}}>
+          <a href="" class='text-decoration-none text-light'> {{brand}}</a>
+        </label>
+      </div>
+      {%endfor%}
+    </div>
+  </div>
+</section>
+
+  {% comment %} car section {% endcomment %}
+<section class='pt-4'>
+  <div class="container">
+    <h2 class="text-left pb-3">Total cars  {{cars|length}}</h2>
+    <div class="d-flex flex-wrap gap-5 justify-content-center">
+      {%for car in cars%}
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top " src="{{car.image.url}}" alt="{{car.name}}" style='height:10rem'>
+            <div class="card-body " >
+              <h5 class="card-title">
+                <a href="" class="text-decoration-none">{{car.name}}</a>
+              </h5>
+              <p class="card-text " style="text-align: justify;">{{car.description | truncatechars:150}}</p>
+              <p>
+                <span> Brand:</span> <span class='text-secondary p-1 rounded'>{{car.brand}}</span>
+              </p>
+              <p>
+            <div class='d-flex justify-content-between align-items-center'>
+             <p>
+              <span> Price:</span> <span class='text-danger'>{{car.price}}$</span>
+             </p>
+             <p>
+              <a href="" class=" d-block btn btn-outline-success ">view</a>
+             </p>
+            </div> 
+            </div>
           </div>
-        </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
+    </div>
   </div>
-  </div>
-{{cars}}
-</div>
+</section>
+
 {% endblock %}
