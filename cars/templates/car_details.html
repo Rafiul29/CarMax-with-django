@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %} Car | {{car.name}}{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+<section class='py-5'>
+  <div class="container"> 
+    <div class="row">
+      <div class="col-6 overflow-hidden ">
+          <img class="card-img-top w-100 h-100 object-fit-cover border"  src="{{car.image.url}}" alt="{{car.name}}">
+      </div>
+      <div class="col-6">
+        <div class="card-body" >
+          <h1 class="card-title mb-1">
+           {{car.name}}
+          </h1>
+          <p class="card-text">{{car.description}}</p>
+          <p>
+            <span> Brand:</span> <span class='text-secondary p-1 rounded'>{{car.brand}}</span>
+          </p>
+          <p>
+     
+         <p>
+          <span> Price:</span> <span class='text-danger'>{{car.price}}$</span>
+         </p>
+         <p>
+          <span>Total  Quntity:</span> <span >{{car.quantity}}</span>
+         </p>
+         {% if request.user.is_authenticated %}
+         <a href="" class="text-decoration-none btn btn-info">Buy now</a>
+         {%endif%}
+      </div>
+    </div>
+    </div>
+</section>
+
+{% comment %} commenet section {% endcomment %}
+<section class='py-5'>
+<div class="container">
+  <div class="card p-2">
+    <h5>Totoal Comments :{{comments | length}} </h5>
+    <div class="card-body">
+      {% for comment in comments%}  
+      <h6>{{comment.name}} (<span class='text-info'>{{comment.created_on  }}</span>) </h6>
+      <p>{{comment.email}} </p>
+      <p>{{comment.body}} </p>
+      <a href="{%url 'deletecomment' comment.id %}" class="href">del</a>
+      {%endfor%}
+    </div>
+  </div>
+  
+  
+  <div class="mt-5">
+    <h2 class='text-center'>Comment Form</h2>
+    <div class="card-body">
+     <form method='POST'>
+        {%csrf_token%}
+       {{comment_form | crispy}}
+      <button class='btn btn-outline-primary'>submit</button>
+     </form>
+    </div>
+  </div>
+</div>
+</section>
+
+
+
+{% endblock %}

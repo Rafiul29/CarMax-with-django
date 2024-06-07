@@ -27,7 +27,7 @@ urlpatterns = [
     path('',views.home,name='home'),
     path('brand/<slug:brand_slug>',views.home,name='brand_wise_car'),
     path('user/',include('users.urls')),
-    # path('car/',include('cars.urls')),
+    path('car/',include('cars.urls')),
     # path('brand/',include('brands.urls')),
     # path('order/',include('orders.urls')),
 ]
