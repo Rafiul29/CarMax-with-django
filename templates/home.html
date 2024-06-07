@@ -4,6 +4,27 @@
 {% block content%}
   
 <div class="container py-5">
-
+  <div class="d-flex flex-wrap gap-5 justify-content-center">
+    {%for car in cars%}
+      <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="{{car.image.url}}" alt="Card image cap">
+          <div class="card-body " >
+            <h5 class="card-title">
+              <a href="" class="text-decoration-none">{{car.title}}</a>
+            </h5>
+            <p class="card-text">{{car.content | truncatechars:150}}</p>
+            <p>
+              Author : {{car.author}}
+            </p>
+            <p> Category: 
+              {% for cat in car.category.all %}
+            <button class='btn btn-secondary m-1'> {{cat.name}}</button>
+            {% endfor %}
+          </div>
+        </div>
+    {% endfor %}
+  </div>
+  </div>
+{{cars}}
 </div>
 {% endblock %}
