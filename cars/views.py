@@ -26,8 +26,3 @@ class DetailCarView(DetailView):
     context['comments']=comments
     context['comment_form']=comment_form
     return context
-
-
-def delete_comment(request,id):
-  form=models.Comment.objects.get(pk=id).delete()
-  return redirect('profile')

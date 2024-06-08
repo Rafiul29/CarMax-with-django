@@ -6,6 +6,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from orders.models import Order
 
+from django.contrib.auth.views import LoginView,LogoutView
+from django.views.generic import CreateView,TemplateView
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+
 # Create your views here.
 def register(request):
   if not request.user.is_authenticated:
@@ -21,41 +26,54 @@ def register(request):
   else:
     return redirect('profile')
 
+# def user_login(request):
+#   if not request.user.is_authenticated:
+#     if request.method=='POST':
+#       login_form=AuthenticationForm(request,data=request.POST)
+#       if login_form.is_valid():
+#         user_name=login_form.cleaned_data['username']
+#         user_password=login_form.cleaned_data['password']
+#         user=authenticate(username=user_name,password=user_password)
+#         if user is not None:
+#           login(request,user)
+#           messages.success(request, 'Logged in Successfully')
+#           return redirect('profile')
+#       else:
+#         messages.warning(request, 'Login informtion incorrect')
+#         return redirect('profile')
+#     else:
+#       login_form=AuthenticationForm()
+#     return render(request,'forms.html',{'form':login_form,'type':"Login"})
+#   else:
+#     return redirect('profile')
 
-def user_login(request):
-  if not request.user.is_authenticated:
-    if request.method=='POST':
-      login_form=AuthenticationForm(request,data=request.POST)
-      if login_form.is_valid():
-        user_name=login_form.cleaned_data['username']
-        user_password=login_form.cleaned_data['password']
-        user=authenticate(username=user_name,password=user_password)
-        if user is not None:
-          login(request,user)
-          messages.success(request, 'Logged in Successfully')
-          return redirect('profile')
-      else:
-        messages.warning(request, 'Login informtion incorrect')
-        return redirect('profile')
-    else:
-      login_form=AuthenticationForm()
-    return render(request,'forms.html',{'form':login_form,'type':"Login"})
-  else:
-    return redirect('profile')
+
+class UserLoginView(LoginView):
+  template_name='forms.html'
+  
+  def get_success_url(self):
+    return reverse_lazy('profile' )
+  
+  def form_valid(self, form):
+      return super().form_valid(form)
+
+  def form_invalid(self, form):
+      return super().form_invalid(form)
+  
+  def get_context_data(self, **kwargs):
+    context= super().get_context_data(**kwargs)
+    context['type']="Login"
+    return context
+
+@method_decorator(login_required ,name="dispatch")
+class Profile(TemplateView):
+  template_name='profile.html'
 
 
-@login_required
-def profile(request):
-  if request.user.is_authenticated:
-    return render(request,'profile.html')
-  else:
-    return redirect('login')
-
-@login_required
-def user_logout(request):
-  logout(request)
-  return redirect('login')
-
+class UserLogoutView(LogoutView):
+   def get_success_url(self):
+    return reverse_lazy('login')
+   
 @login_required
 def edit_profile(request):
   if request.method=='POST':
