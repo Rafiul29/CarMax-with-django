@@ -5,32 +5,35 @@
 {% block content%}
 
 <div class="container mt-5">
-  <h6 class='py-3'> Total orders :   {{orders|length}}</h6>
+  <h4 class='py-3'> Total orders :   {{orders|length}}</h4>
   <div class="d-flex flex-wrap gap-5 justify-content-center">
-    {%for order in orders%}
-      <div class="card" style="width: 18rem;">
-          <img class="card-img-top " src="{{order.car.image.url}}" alt="{{car.name}}" style='height:10rem'>
-          <div class="card-body " >
-            <h5 class="card-title">
-              <h6> Order Id : {{order.id}}</h6>
-              <a href="{%url 'car_details' order.car.id%}" class="text-decoration-none">{{order.car.name}}</a>
-            </h5>
-            <p class="card-text " style="text-align: justify;">{{order.car.description | truncatechars:50}}</p>
-            <p>
-              <span> Brand:</span> <span class='text-secondary p-1 rounded'>{{order.car.brand}}</span>
-            </p>
-            <p>
-          <div class='d-flex justify-content-between align-items-center'>
-           <p>
-            <span> Price:</span> <span class='text-danger'>{{order.car.price}}$</span>
-           </p>
-           <p>
-           <a  href="{%url 'car_details' order.car.id%}"  class=" d-block btn btn-outline-info ">view</a> 
-           </p>
-          </div> 
-          </div>
-        </div>
-    {% endfor %}
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">SN</th>
+          <th scope="col">Order Id</th>
+          <th scope="col">Car Model</th>
+          <th scope="col">Brand</th>
+          <th scope="col">Price</th>
+          <th scope="col">show</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for order in orders%}
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{order.id}}</td>
+          <td>{{order.car.name}}</td>
+          <td>{{order.car.brand}}</td>
+          <td>{{order.car.price}}$</td>
+          <td> 
+            <a  href="{%url 'car_details' order.car.id%}"  class=" d-block btn btn-outline-info ">view</a> 
+          </td>
+        </tr>
+        {% endfor %} 
+       
+      </tbody>
+    </table>
   </div>
 </div>
 {% endblock %}

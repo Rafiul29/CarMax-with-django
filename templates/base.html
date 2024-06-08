@@ -26,7 +26,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-          {% if request.user.is_authenticated%} 
+          {% comment %} {% if request.user.is_authenticated%} 
           <li class="nav-item">
             <a class="nav-link" href="">Add Car</a>
           </li>
@@ -34,7 +34,7 @@
             <a class="nav-link" href="">Add Brand</a>
           </li>
 
-     {%endif%} 
+     {%endif%}  {% endcomment %}
         
         </ul>
         <div class='d-flex gap-1'>
@@ -53,17 +53,12 @@
       </div>
     </div>
   </nav>
-{% comment %} 
-  {% for mes in messages%}
-    <h3 class=""> 
-      <small class="text-{{mes.tags}}">{{em}}</small>
-    </h3> {% endcomment %}
-    {% comment %} {{mes}} {% endcomment %}
-  {% comment %} {% endfor %} {% endcomment %}
 
   {% block content %}
   
   {% endblock %}
+
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
